@@ -1,11 +1,29 @@
 from scipy.sparse import isspmatrix, issparse
 from muon import MuData
-import muon as mu
-import anndata as ad
+from anndata import AnnData
 import numpy as np
 from statistics import median
 
-def arcsinh_transform(adata: ad.AnnData, densify = True, to_layers = True, cofactor=1, noise_mean = 0.5, noise_sd = 0.5):
+def find_feature(adata: AnnData, id:str = None, name:str = None):
+    if not bool(id) ^ bool(name):
+        raise AttributeError("Specify either id or name")
+
+    if id:
+        idx = np.where(adata.var_names == id)
+    else:
+        idx = np.where(adata.var['gene_ids'] == name)
+
+
+    if len(idx[0])>0:
+        ridx = idx[0][0]
+        res = adata.X[:, ridx]
+        if issparse(res):
+            res = np.array(res.todense()).reshape(-1)
+        return res
+    else:
+        return None
+
+def arcsinh_transform(adata: AnnData, densify = True, to_layers = True, cofactor=1, noise_mean = 0.5, noise_sd = 0.5):
     '''
     implements the hyperbolic arcsin transformation
     '''
@@ -31,20 +49,20 @@ def arcsinh_transform(adata: ad.AnnData, densify = True, to_layers = True, cofac
 
     return adata
 
-def isotype_norm(mdata: mu.MuData, isotype_dict, to_layers=False, inplace=True, default_isotype='66360-1'):
+def isotype_norm(mdata: MuData, isotype_dict, to_layers=False, inplace=True, default_isotype='66360-1'):
     count_mat = np.asarray(mdata['prot'].X.todense())
     result_arr = np.zeros(count_mat.shape)
     for ab_idx, ab_count in enumerate(count_mat.T):
         ab_count = ab_count.reshape(-1)
         med_original = median(ab_count)
         
-        isotype_name = isotype_dict.get(mdata['prot'].var['gene_ids'][ab_idx], None)
-        if isotype_name:
-            isotype_count = find_feature_id(mdata, isotype_name[:7]) 
+        isotype_id = isotype_dict.get(mdata['prot'].var['gene_ids'][ab_idx], None)
+        if isotype_id:
+            isotype_count = find_feature(mdata['prot'], id = isotype_id[:7]) 
             # [:7] is to strip off the dash number form the isotype name
             # the 'Notavailable' of isotype_name is handled in the following if block
             if isotype_count is None:
-                isotype_count = find_feature_id(mdata, default_isotype)
+                isotype_count = find_feature(mdata['prot'], id = default_isotype)
 
 
         isotype_count = np.asarray(isotype_count.todense()).reshape(-1)
@@ -68,7 +86,7 @@ def isotype_norm(mdata: mu.MuData, isotype_dict, to_layers=False, inplace=True, 
     else:
         return result_arr
     
-def gen_isotype_dict(annd:ad.AnnData):
+def gen_isotype_dict(annd:AnnData):
     ## select only proteins
     prot_var = annd.var[annd.var['feature_types'] == 'Antibody Capture'][['gene_ids', 'IsoCtrl']] 
 
