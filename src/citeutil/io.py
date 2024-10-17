@@ -1,21 +1,24 @@
-import muon as mu
-import numpy as np
+from muon import read_10x_mtx, MuData
 
-def read_10x_mtx_filter(path, bc_allow=None, bc_block=None, *args, **kwargs) -> mu.MuData:
-    mudat = mu.read_10x_mtx(path, *args, **kwargs)
+def read_10x_mtx_filter(path, allow_file:str=None, block_file:str=None, *args, **kwargs) -> MuData:
+    if allow_file is not None and block_file is not None:
+        raise AttributeError("Cannot use bc_allow and bc_block together")
 
-    if bc_allow is not None and bc_block is not None:
-        raise ValueError("Both bc_allow and bc_block cannot be used together")
+    mudat = read_10x_mtx(path, *args, **kwargs)
 
-    if bc_allow:
+    if allow_file:
+        with open(allow_file, 'r') as f:
+            bc_allow = set([l.split(',')[0] for l in f.read().splitlines()])
         bc_keep = [bc in bc_allow for bc in mudat.obs_names]
         print(f'Supplied {len(bc_allow)} allowed barcodes, kept {sum(bc_keep)} / {mudat.shape[0]} barcodes')
         mudat = mudat[bc_keep, :]
 
-    if bc_block:
-        bc_keep = [bc in bc_block for bc in mudat.obs_names]
-        print(f'Supplied {len(bc_block)} blocked barcodes, removed {sum(bc_keep)} / {mudat.shape[0]} barcodes')
-        mudat = mudat[np.logical_not(bc_keep), :]
+    if block_file:
+        with open(block_file, 'r') as f:
+            bc_block = set([l.split(',')[0] for l in f.read().splitlines()])
+        bc_keep = [bc not in bc_block for bc in mudat.obs_names]
+        print(f'Supplied {len(bc_block)} blocked barcodes, kept {sum(bc_keep)} / {mudat.shape[0]} barcodes')
+        mudat = mudat[bc_keep, :]
 
     mudat.var_names_make_unique()
     mudat.raw = mudat.copy()
