@@ -22,13 +22,13 @@ This set of code are can work in jupyter/colab environment or being incorporated
 
 ```python
 
-import citeutil
+from citeutil import *
 
 ## read filtered barcode matrix into a mudata object
 mudat = read_10x_mtx_filter("/path/to/sample_filtered_feature_barcode_matrix.h5", bc_block="/path/to/blocked_barcodes.txt")
 
 ## perform arcsinh transformation on the protein modality
-arcsinh_transformation(mudat['prot'], inplace=True, densify= True)
+arcsinh_transform(mudat['prot'], inplace=True, densify= True)
 
 ```
 

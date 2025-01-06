@@ -1,17 +1,17 @@
 [project]
-name = "citeutil"  # Required
+name = "citeutil" 
 
-version = "0.1.0"  # Required
+version = "0.1.0" 
 
 description = "A CITE-seq util code collection"  
 
-readme = "README.md" # Optional
+readme = "README.md"
 
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 
 license = {file = "LICENSE.txt"}
 
-keywords = ["citeseq", "proteintech", "development"]  # Optional
+keywords = ["citeseq", "proteintech", "development"] 
 
 classifiers = [  # Optional
 
@@ -23,29 +23,20 @@ classifiers = [  # Optional
 
   "License :: Other/Proprietary License",
 
-  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
 ]
 
 dependencies = [ # Optional
   "muon",
   "anndata",
-  "numpy",
+  "numpy<2",
   "scipy",
-  "scanpy"
+  "scanpy",
+  "numba>=0.57.1" # uv-sync automatically pulled a old version of llvm-lite. 
 ]
 
 
-# List URLs that are relevant to your project
-#
-# This field corresponds to the "Project-URL" and "Home-Page" metadata fields:
-# https://packaging.python.org/specifications/core-metadata/#project-url-multiple-use
-# https://packaging.python.org/specifications/core-metadata/#home-page-optional
-#
-# Examples listed include a pattern for specifying where the package tracks
-# issues, where the source is hosted, where to say thanks to the package
-# maintainers, and where to support the project financially. The key is
-# what's used to render the link text on PyPI.
 [project.urls]  # Optional
 "Homepage" = "https://github.com/ptggenomics/citeutil"
 "Bug Reports" = "https://github.com/ptggenomics/citeutil/issues"
