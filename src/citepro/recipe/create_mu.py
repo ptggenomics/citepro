@@ -55,19 +55,19 @@ def create_mudata(path_count: str,
     path_count : str
         path to the sample_feature_bc_matrix (h5 or mtx format, .h5 is recommended).
     path_map_rna : Optional[str], optional
-        path to the feature_reference.csv file used in the cellranger multi. Must contain the map_rna column. [default: None]
+        path to the feature_reference.csv file used in the cellranger multi. Must contain the map_rna column.
     samp_id : Optional[str], optional
-        sample id for this count matrix, this is very useful if multiple count matrices will be combined in downstream analysis. [default: None]
+        sample id for this count matrix, this is very useful if multiple count matrices will be combined in downstream analysis.
     prot_norm : str, optional
-        normalization/transformation method for protein. Options are 'clr' (Centered Log Ratio), 'asinh' (Jittered asinh transformation), or 'none'. [default: 'asinh']
+        normalization/transformation method for protein. Options are 'clr' (Centered Log Ratio), 'asinh' (Jittered asinh transformation), or 'none'.
     allow_file : Optional[str], optional
-        path to barcode allow list csv file. barcodes in this list will be kept. Can be generated with Loupe Browser. [default: None]
+        path to barcode allow list csv file. barcodes in this list will be kept. Can be generated with Loupe Browser.
     block_file : Optional[str], optional
-        path to barcode block list csv file. barcodes in this list will be removed. Can be generated with Loupe Browser. [default: None]
+        path to barcode block list csv file. barcodes in this list will be removed. Can be generated with Loupe Browser.
     celltypist_model : Optional[str], optional
-        Celltypist models to be used, 'Immune_All_Low.pkl' is a common choice is the sample type is PBMC. If 'None' is specified, celltypist prediction will not be performed. [default: None]
+        Celltypist models to be used, 'Immune_All_Low.pkl' is a common choice is the sample type is PBMC. If 'None' is specified, celltypist prediction will not be performed.
     add_3d_umap : bool, optional
-        Whether to generate 3D UMAP projection. [default: True]
+        Whether to generate 3D UMAP projection.
 
     Returns
     -------
@@ -96,8 +96,8 @@ def create_mudata(path_count: str,
     if samp_id:
         logger.info(f'Attaching Sample ID {samp_id}')
         mudat.obs['sample_id'] = samp_id
-        for md_key in mudat.mod.keys():
-            mudat[md_key].obs['sample_id'] = mudat.obs['sample_id']
+        #for md_key in mudat.mod.keys():
+        #    mudat[md_key].obs['sample_id'] = mudat.obs['sample_id']
     else:
         logger.info('Sample ID not specified')
     

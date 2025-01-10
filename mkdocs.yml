@@ -2,25 +2,34 @@ site_name: "citepro"
 
 theme:
   name: "material"
+  custom_dir: "docs/overrides"
+  logo: assets/images/LOGO-2s.png
+  favicon: assets/images/favicon.ico
   features:
     - navigation.instant
   palette:
 
     # Palette toggle for light mode
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
+    - scheme: default
       toggle:
-        icon: material/brightness-7
+        icon: material/brightness-7 
         name: Switch to dark mode
 
     # Palette toggle for dark mode
-    - media: "(prefers-color-scheme: dark)"
-      scheme: slate
+    - scheme: slate
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
 
 repo_url: https://github.com/ptggenomics/citepro
+
+extra_css:
+  - assets/stylesheets/extra.css
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
 
 plugins:
 - search

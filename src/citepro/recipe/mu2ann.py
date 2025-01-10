@@ -38,9 +38,9 @@ def check_mu_req(mdat: mu.MuData):
         if 'X_umap' not in mdat[md_key].obsm_keys():
             raise KeyError(f'No umap found for {md_key} modal')
         
-        for obscol in obs_checks:
-            if obscol not in mdat[md_key].obs_keys():
-                raise KeyError(f'No {obscol} found for {md_key} modal')
+        #for obscol in obs_checks:
+        #    if obscol not in mdat[md_key].obs_keys():
+        #        raise KeyError(f'No {obscol} found for {md_key} modal')
             
         
     ## ====== Protein side checkup =========
@@ -101,6 +101,27 @@ def collapse_var(mudat: mu.MuData):
 
     return new_var
 
+def cleanup_obs(adat: AnnData) -> pd.DataFrame:
+    """cleanup obs for combined anndata
+
+    Parameters
+    ----------
+    adat : AnnData
+        anndata to be cleaned up
+
+    Returns
+    -------
+    pd.DataFrame
+        cleaned up obs
+    """    
+    ## remove mod_weight columns
+    mod_weight_cols = [col for col in adat.obs.columns if 'mod_weight' in col]
+    new_obs = adat.obs.drop(columns = mod_weight_cols, inplace = False)
+
+    new_obs.columns = [col.replace('rna:','').replace('prot:','') for col in new_obs.columns]
+    
+    return new_obs
+
 def collapse_X_raw(mdat: mu.MuData):
     """Generate new sparse matrix from the transformed/normalized data"""
     if isspmatrix(mdat['prot'].raw.X):
@@ -138,6 +159,8 @@ def collapse_mu(mdat: mu.MuData) -> AnnData:
                          obs = mdat.obs,
                          var = collapse_var(mdat))
     
+    new_ann.obs = cleanup_obs(new_ann)
+    
     return new_ann
     
 
@@ -150,7 +173,7 @@ def mu_to_ann(mudat: MuData, include_raw= False) -> AnnData:
     mudat : MuData
         input mudata object
     include_raw : bool, optional
-        whether to include the raw, by default False
+        whether to include the raw slot
 
     Returns
     -------
