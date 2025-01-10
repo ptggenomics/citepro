@@ -1,0 +1,34 @@
+site_name: "citepro" 
+
+theme:
+  name: "material"
+  features:
+    - navigation.instant
+  palette:
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+repo_url: https://github.com/ptggenomics/citepro
+
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+        python:
+            options:
+                docstring_style: numpy
+                docstring_section_style: table  # or 'list', 'spacy'
+                show_source: false
+    
