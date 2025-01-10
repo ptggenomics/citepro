@@ -9,12 +9,12 @@ A collection of code that we think is useful for analyzing Multiomic single cell
 
 To install this package, use the following pip command
 ```
-pip install git+https://https://github.com/ptggenomics/citeutil.git
+pip install git+https://https://github.com/ptggenomics/citepro.git
 ```
 
 To install this package, use the following pip command
 ```
-pip install -u git+https://https://github.com/ptggenomics/citeutil.git
+pip install -u git+https://https://github.com/ptggenomics/citepro.git
 ```
 
 # Example Usage
@@ -22,22 +22,20 @@ This set of code are can work in jupyter/colab environment or being incorporated
 
 ```python
 
-from citeutil import *
+import citepro 
 
 ## read filtered barcode matrix into a mudata object
-mudat = read_10x_mtx_filter("/path/to/sample_filtered_feature_barcode_matrix.h5", bc_block="/path/to/blocked_barcodes.txt")
+mdata = citepro.recipe.create_mudata("/path/to/sample_filtered_feature_barcode_matrix.h5", allow_file="/path/to/blocked_barcodes.txt")
 
-## perform arcsinh transformation on the protein modality
-arcsinh_transform(mudat['prot'], inplace=True, densify= True)
+## generate anndata object from the mudata
+adata = citepro.recipe.mu_to_ann(mdata)
 
 ```
 
-Please visit the notebook repository for more tutorial code
+Please visit the (citepro-notebook)[http://github.com/ptggenomics/citepro_notebook] repository for more tutorial code
 
 
 ----
 
 
 This file is under active development
-
-KitD made this change at feat branch
