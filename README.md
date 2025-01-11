@@ -1,4 +1,4 @@
-# CITE-seq analysis python toolbox
+# Citepro - a CITE-seq analysis python toolbox
 
 <img src="https://www.ptglab.com/img/logos/PTG_Genomics_logo.png" width = 300/>
 
@@ -6,7 +6,7 @@ A collection of code that we think is useful for analyzing Multiomic single cell
 
 # Prerequisite - python package manager
 
-We recommend using (uv)[https://docs.astral.sh/uv/] for dependency management. Please follow the instruction on the (installation)[https://docs.astral.sh/uv/getting-started/installation/] for installing uv.
+We recommend using [uv](https://docs.astral.sh/uv/) for dependency management. Please follow the instruction on the [installation](https://docs.astral.sh/uv/getting-started/installation/) for installing uv.
 
 After installing uv, create a virtual environment is recommended.
 ```sh
@@ -47,7 +47,7 @@ adata = citepro.recipe.mu_to_ann(mdata)
 
 ```
 
-Please visit the (citepro-notebook)[http://github.com/ptggenomics/citepro_notebook] repository for more tutorial code
+Please visit the [citepro-notebook](http://github.com/ptggenomics/citepro_notebook) repository for more tutorial code
 
 
 ----

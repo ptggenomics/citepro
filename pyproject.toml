@@ -1,13 +1,13 @@
 [project]
 name = "citepro" 
 
-version = "0.1.1" 
+version = "0.1.1a" 
 
 description = "A CITE-seq util code collection"  
 
 readme = "README.md"
 
-requires-python = ">=3.11"
+requires-python = ">=3.10"
 
 license = {file = "LICENSE.txt"}
 
@@ -21,9 +21,9 @@ classifiers = [  # Optional
 
   "Topic :: Scientific/Engineering :: Bio-Informatics",
 
-  "License :: Other/Proprietary License",
+  # "License :: Other/Proprietary License",
 
-  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3 :: Only",
 ]
 
