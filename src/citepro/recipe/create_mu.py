@@ -10,7 +10,9 @@ from ..pp import arcsinh_transform, calc_qc_prot_var, calc_cell_qc, gen_adata_ce
 
 from tqdm import trange
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('citepro')
+logger.setLevel(logging.INFO)
+
 """create_mu module contains code to convert cellranger count matrix into MuData format
 """
 
