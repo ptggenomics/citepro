@@ -36,7 +36,7 @@ dependencies = [ # Optional
   "numba>=0.57.1",
   "celltypist>=1.6.3",
   "ipyfilechooser>=0.6.0",
-  "ipywidgets>=8.1.5",
+  "ipywidgets>=7,<7.8",
 ]
 
 
