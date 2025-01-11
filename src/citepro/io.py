@@ -5,7 +5,8 @@ from pathlib import Path
 from typing import Optional
 
 import logging
-logger = logging.getLogger()
+logger = logging.getLogger('citepro')
+logger.setLevel(logging.INFO)
 """the io module contains utility codes for reading data
 """
 
