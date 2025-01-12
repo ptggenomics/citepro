@@ -1,10 +1,20 @@
-# Reference
+---
+title: Citepro - Reference
+summary: API reference of cipro
+authors:
+    - Jason Huang
+date: 2025-01-10
+weight: 30
+---
+
+# Citepro - Reference
 
 !!! note
 
     The citepro is under active development, and codes may be changing frequently.
+
 ## Citeutil.recipe
-The cecipe module contains all-in-one functions for the impatients and new users to run one command and get useful info and data compiled
+The recipe module contains all-in-one functions for the impatients and new users to run one command and get useful info and data compiled
 
 ### create_mudata
 ::: citepro.recipe.create_mudata
