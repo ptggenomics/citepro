@@ -37,6 +37,7 @@ markdown_extensions:
 
 plugins:
 - search
+- markdownextradata: {}
 - mkdocs-nav-weight:
     section_renamed: false
     index_weight: -10
@@ -50,4 +51,7 @@ plugins:
                 docstring_style: numpy
                 docstring_section_style: table  # or 'list', 'spacy'
                 show_source: false
-    
+
+extra:
+  nb_basic: 
+    partial_link: "ptggenomics/citepro_notebook/blob/40c20d230c14fdcfb2be93791c38f25b102a4e43/Basic_usage_GUI.ipynb"

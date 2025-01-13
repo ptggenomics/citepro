@@ -15,7 +15,7 @@ def multiomics_feature_plot(adata: AnnData, protein:str, basis:str= 'X_umap_rna'
     if protein_name: 
         prot_level = find_feature(adata, protein_name)
         vmin = max(2, np.percentile(prot_level, 0.5))
-        vmax = min(6, np.percentile(prot_level, 99.5))
+        vmax = max(6, np.percentile(prot_level, 99.5))
         sc.pl.embedding(adata, basis= basis, color = protein, projection=projection, ax=axes[0], show=False, cmap='magma_r',vmin = vmin, vmax = vmax)
     else:
         axes[0].text(0.35, 0.5, f'No such protein {protein}', c='#7777ff')
