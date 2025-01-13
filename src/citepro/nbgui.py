@@ -3,6 +3,11 @@ import ipywidgets as widgets
 from IPython.display import display
 import celltypist as ct
 
+from anndata import AnnData
+
+from .pl import multiomics_feature_plot
+
+
 modname = [mn for mn in ct.models.models_description()['model']]
 modname.insert(0, "--- None ---")
 
@@ -81,3 +86,27 @@ def generate_create_mu_setting():
     display(vbox)
 
     return create_mu_setting
+
+def display_multiomics_feature_plot(adata: AnnData):
+
+    prot_idx = adata.var[adata.var['feature_types'] == 'Antibody Capture' ].index
+    
+    cb_prot = widgets.Combobox(
+        # value='John',
+        placeholder='prot:CD8A.65146.1',
+        options=[pt for pt in prot_idx],
+        description='Protein:',
+        ensure_option=True,
+        disabled=False
+    )
+
+    output = widgets.Output()
+
+    def on_value_change(change):
+        with output:
+            output.clear_output()
+            multiomics_feature_plot(adata, change.new)
+
+    cb_prot.observe(on_value_change, names='value')
+
+    display(cb_prot, output)

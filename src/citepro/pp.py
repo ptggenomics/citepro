@@ -4,51 +4,15 @@ from anndata import AnnData
 import numpy as np
 from statistics import median
 import scanpy as sc
-import celltypist as ct
+
 from typing import Union
+
+from .utils import find_feature
 
 """pp module contains utility codes for data preprocessing
 """
 
-def find_feature(adata: AnnData, id:str = None, name:str = None) -> Union[np.ndarray, None]:
-    """return the counts of the specified feature in the .X slot of supplied anndata object, or None if such id or name is not found.
 
-    Parameters
-    ----------
-    adata : AnnData
-        input anndata object
-    id : str, optional
-        id to search for. Typically is 'rna:CD8A' or 'prot:CD8A.65146.1'. must sepcify either id or name. [default: None]
-    name : str, optional
-        name to search for. Typically 'ENSGxxxxx' or proteintech id '12345-1'. must sepcify either id or name. [default: None]
-
-    Returns
-    -------
-    Union[np.ndarray, None]
-        return the counts of the specified feature, or None if not found
-
-    Raises
-    ------
-    AttributeError
-        raised if both id and name are specified.
-    """    
-    if not bool(id) ^ bool(name):
-        raise AttributeError("Specify either id or name")
-
-    if id:
-        idx = np.where(adata.var_names == id)
-    else:
-        idx = np.where(adata.var['gene_ids'] == name)
-
-
-    if len(idx[0])>0:
-        ridx = idx[0][0]
-        res = adata.X[:, ridx]
-        if issparse(res):
-            res = np.array(res.todense()).reshape(-1)
-        return res
-    else:
-        return None
 
 def arcsinh_transform(adata: AnnData, densify = True, to_layers = True, cofactor=1, noise_mean = 0.5, noise_sd = 0.5) -> AnnData:
     """Implements the jittered hyperbolic arcsin transformation
@@ -159,6 +123,8 @@ def gen_adata_celltypist(mdata_raw: MuData, ct_model='Immune_All_Low.pkl', targe
     Union[AnnData,None]
         _description_
     """    
+
+    import celltypist as ct
     
     adata = mdata_raw['rna'].copy()
     adata.var.index = [gn.replace("rna:","") for gn in adata.var.index]
