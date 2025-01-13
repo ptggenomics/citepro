@@ -1,4 +1,4 @@
-site_name: "Citepro" 
+site_name: "CITE-pro" 
 
 theme:
   name: "material"
@@ -54,4 +54,4 @@ plugins:
 
 extra:
   nb_basic: 
-    partial_link: "ptggenomics/citepro_notebook/blob/40c20d230c14fdcfb2be93791c38f25b102a4e43/Basic_usage_GUI.ipynb"
+    partial_link: "ptggenomics/citepro_notebook/blob/71551e454b7632f0f6420cca0228d461741c097a/Basic_usage_GUI.ipynb"
