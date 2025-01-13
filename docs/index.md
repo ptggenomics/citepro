@@ -3,7 +3,7 @@ Welcome!
 
 !!! tip "Try citepro on Colab" 
 
-    Google Colab is a ready to use, setup-free notkbook environment that you can launch directly. Please sign up for an google account, and click the launch button on the right -> \( <a target="_blank" href="https://colab.research.google.com/github/ptggenomics/citepro_notebook/blob/28d28b9cbcac2ceb2c5cf09ea750af3335e22dfa/Basic_usage_GUI.ipynb"> :simple-googlecolab:  </a> \) to try citepro with GUI directly.
+    Google Colab is a ready to use, setup-free notkbook environment that you can launch directly. Please sign up for an google account, and click the launch button on the right -> \( <a target="_blank" href="https://colab.research.google.com/github/ptggenomics/citepro_notebook/blob/2b2a94a9678b9d03b8789894675d0ac2a106da40/Basic_usage_GUI.ipynb"> :simple-googlecolab:  </a> \) to try citepro with GUI directly.
 
 
 Citepro is a collection of wrapper codes that is aimed to provide streamlined data processing experience to convert Multiomic RNA+Protein cellranger count matrix to h5ad, a data container format that is compatible with downstream analysis code written in python or R  
