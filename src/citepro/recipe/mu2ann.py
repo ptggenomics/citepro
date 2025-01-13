@@ -9,7 +9,8 @@ from scipy.sparse import csr_matrix, isspmatrix, hstack
 
 def check_mu_req(mdat: mu.MuData):
     modalities = ['prot','rna']
-    obs_checks = ['sample_id']
+    #obs_checks = ['sample_id']
+    obs_checks = []
 
     ##  ====== checkup for combined mudata ======
 

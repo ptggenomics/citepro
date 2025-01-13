@@ -17,6 +17,8 @@ def generate_create_mu_setting():
     
     # Create and display a FileChooser widget
     fc_count = FileChooser()
+    fc_count.filter_pattern = "*.h5"
+    fc_count.show_only_dirs = True
     fc_count_reset = widgets.Button(description='Reset selection', layout=widgets.Layout(width='150px'))
     fc_count_reset.on_click(lambda x: fc_count.reset())
 
@@ -28,6 +30,7 @@ def generate_create_mu_setting():
     )
     # Create another FileChooser widget for barcode block list
     fc_barcode = FileChooser()
+    fc_barcode.show_only_dirs = True
     fc_barcode_reset = widgets.Button(description='Reset selection', layout=widgets.Layout(width='150px'))
     fc_barcode_reset.on_click(lambda x: fc_barcode.reset())
     #fc_barcode.title = 'Barcode_block_list'
