@@ -54,4 +54,4 @@ plugins:
 
 extra:
   nb_basic: 
-    partial_link: "ptggenomics/citepro_notebook/blob/a55a25be2dd37906484dfced36818988288c1558/Basic_usage_GUI.ipynb"
+    partial_link: "ptggenomics/citepro_notebook/blob/05fc6ceaf9e5967d887220e6669f7727b9c0f382/Basic_usage_GUI.ipynb"
