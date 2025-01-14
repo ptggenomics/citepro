@@ -22,10 +22,10 @@ The purpose of CITE-pro is to provide a suggestion of using the publicly availab
 
 
 # Tutorials
-Go to the [Tutorial](/tutorials/) page for interactive notebooks that can be launch on [Google Colab](https://research.google.com/colaboratory/faq.html)
+Go to the [Tutorial](/citepro/tutorials/) page for interactive notebooks that can be launch on [Google Colab](https://research.google.com/colaboratory/faq.html)
 
 # Reference
-Go to the [Reference](/reference/) page for a detailed list of options to customize the setting for the functions, such as adding block list or allow list accompanied with the count matrix 
+Go to the [Reference](/citepro/reference/) page for a detailed list of options to customize the setting for the functions, such as adding block list or allow list accompanied with the count matrix 
 
 !!! note
 
