@@ -3,7 +3,7 @@ from muon import MuData
 from anndata import AnnData
 import numpy as np
 from statistics import median
-import scanpy as sc
+#import scanpy as sc
 
 from typing import Union
 
@@ -125,6 +125,7 @@ def gen_adata_celltypist(mdata_raw: MuData, ct_model='Immune_All_Low.pkl', targe
     """    
 
     import celltypist as ct
+    import scanpy as sc
     
     adata = mdata_raw['rna'].copy()
     adata.var.index = [gn.replace("rna:","") for gn in adata.var.index]
