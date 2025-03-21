@@ -91,9 +91,7 @@ def create_mudata(path_count: str,
     ## Read 
     mudat = read_10x_filter(path_count=path_count, path_map_rna=path_map_rna,
                             allow_file=allow_file, block_file=block_file)
-    if use_gpu:
-        sc.get.anndata_to_GPU(mudat['prot'])
-        sc.get.anndata_to_GPU(mudat['rna'])
+
     ## Step 1 calculate all the stastics with raw integer counts
     logger.info('Claculating protein UMI count descriptive metadata')
     calc_qc_prot_var(mudat['prot'])
@@ -131,6 +129,11 @@ def create_mudata(path_count: str,
             mudat['prot'].layers['arcsinh'] = mudat['prot'].X.copy()
         case _:
             logger.info('No normalization for protein.')
+
+    if use_gpu:
+        logger.info('using Rapids_singlecell, Moving data to GPU')
+        sc.get.anndata_to_GPU(mudat['prot'])
+        sc.get.anndata_to_GPU(mudat['rna'])
 
     rna_target_sum = 1e4
     logger.info(f'RNA - Performing log1p normalizing for rna with target total count per cell of {rna_target_sum}.')
