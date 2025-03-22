@@ -27,8 +27,9 @@ except ModuleNotFoundError:
 """
 
 def _cluster_umap_by_modal(mudat: MuData, modal = Literal['prot', 'rna'], add_3d:bool = True):
-    logger.info(f"{use_gpu=}")
+
     logger.info(f"{modal} - Run PCA")
+    sc.pp.filter_genes(mudat.mod['rna'],  min_counts=50)
     sc.pp.pca(mudat[modal])
     logger.info(f"{modal} - Generate neighbor graph")
     sc.pp.neighbors(mudat[modal])
@@ -91,6 +92,7 @@ def create_mudata(path_count: str,
     ## Read 
     mudat = read_10x_filter(path_count=path_count, path_map_rna=path_map_rna,
                             allow_file=allow_file, block_file=block_file)
+    logger.info(f"{use_gpu=}")
 
     ## Step 1 calculate all the stastics with raw integer counts
     logger.info('Claculating protein UMI count descriptive metadata')
