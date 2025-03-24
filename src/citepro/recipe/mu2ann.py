@@ -54,6 +54,15 @@ def check_mu_req(mdat: mu.MuData):
         raise KeyError('Layer norm_log1p not found on rna side')
 
 
+def _create_csr_matrix(X_mat) -> csr_matrix:
+    try: 
+        import cupy
+        if isinstance(X_mat, cupy.ndarray):
+            data = cupy.asnumpy(X_mat)
+    except ImportError:
+            data = X_mat
+    return csr_matrix(data, dtype= np.float32)
+
 def collapse_X(mdat: mu.MuData):
     """Generate new sparse matrix from the transformed/normalized data"""
     #if isspmatrix(mdat['prot'].layers['arcsinh']):
@@ -65,15 +74,16 @@ def collapse_X(mdat: mu.MuData):
     #    spm_rna = mdat['rna'].layers['norm_log1p']
     #else:
     #    spm_rna = csr_matrix(mdat['rna'].layers['norm_log1p'])
+
     if isspmatrix(mdat['prot'].X):
         spm_prot = mdat['prot'].X
     else:
-        spm_prot = csr_matrix(mdat['prot'].X, dtype= np.float32)
+        spm_prot = _create_csr_matrix(mdat['prot'].X)
     
     if isspmatrix(mdat['rna'].X):
         spm_rna = mdat['rna'].X
     else:
-        spm_rna = csr_matrix(mdat['rna'].X)
+        spm_rna = _create_csr_matrix(mdat['rna'].X)
 
     return hstack([spm_prot,spm_rna], format='csr')
 
