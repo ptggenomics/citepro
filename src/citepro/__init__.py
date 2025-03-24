@@ -13,11 +13,12 @@ logger.setLevel(logging.INFO)
 #    use_gpu = False
 #    logger.info("rapids_singlecell not installed, fallback to CPU")
 
-try:
-    from cuml.accel import install
-    install()
-except ModuleNotFoundError:
-    logger.info("cuml not installed, fallback to sk-learn")
+# rapids_single cell seems to have incompatible API calls with cuml. so this trial1 below failed.
+#try:
+#    from cuml.accel import install
+#    install()
+#except ModuleNotFoundError:
+#    logger.info("cuml not installed, fallback to sk-learn")
     
 
 
