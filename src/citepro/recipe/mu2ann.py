@@ -58,10 +58,9 @@ def _create_csr_matrix(X_mat) -> csr_matrix:
     try: 
         import cupy
         if isinstance(X_mat, cupy.ndarray):
-            data = cupy.asnumpy(X_mat)
+            return csr_matrix(cupy.asnumpy(X_mat), dtype= np.float32)
     except ImportError:
-            data = X_mat
-    return csr_matrix(data, dtype= np.float32)
+            return csr_matrix(X_mat, dtype= np.float32)
 
 def collapse_X(mdat: mu.MuData):
     """Generate new sparse matrix from the transformed/normalized data"""
