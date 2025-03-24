@@ -127,13 +127,13 @@ def gen_adata_celltypist(mdata_raw: MuData, ct_model='Immune_All_Low.pkl', targe
     Union[AnnData,None]
         _description_
     """    
-
-    try:
-        from cuml.accel import install
-        install()
-        logger.info("found cuml, try using cuml zero code change mode")
-    except ModuleNotFoundError:
-        logger.info("cuml not installed, fallback to sk-learn")
+    # Trial 2 of cuml zero change failed too 
+    #try:
+    #    from cuml.accel import install
+    #    install()
+    #    logger.info("found cuml, try using cuml zero code change mode")
+    #except ModuleNotFoundError:
+    #    logger.info("cuml not installed, fallback to sk-learn")
 
     import celltypist as ct
     import scanpy as sc
