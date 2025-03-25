@@ -62,6 +62,9 @@ def _create_csr_matrix(X_mat) -> csr_matrix:
             return csr_matrix(cupy.asnumpy(X_mat), dtype= np.float32)
         elif cupyx.scipy.sparse.issparse(X_mat):
             return X_mat.get()
+        else:
+            #should be numpy.ndarray
+            return csr_matrix(X_mat, dtype= np.float32)
 
     except ImportError:
             return csr_matrix(X_mat, dtype= np.float32)
