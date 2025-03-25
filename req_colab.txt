@@ -1,0 +1,9 @@
+muon
+anndata
+numpy
+scipy
+scanpy
+numba
+celltypist
+ipyfilechooser
+ipywidgets

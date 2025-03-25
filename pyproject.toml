@@ -28,15 +28,8 @@ classifiers = [  # Optional
 ]
 
 dependencies = [ # Optional
+  "scanpy",
   "muon",
-  "anndata",
-  "numpy<2",
-  "scipy",
-  "scanpy", # uv-sync automatically pulled a old version of llvm-lite.
-  "numba>=0.57.1",
-  "celltypist>=1.6.3",
-  "ipyfilechooser>=0.6.0",
-  "ipywidgets>=7,<7.8",
 ]
 
 

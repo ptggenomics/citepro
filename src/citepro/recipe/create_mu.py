@@ -1,4 +1,4 @@
-import scanpy as sc
+#import scanpy as sc
 import muon as mu
 from mudata import MuData
 
@@ -13,11 +13,23 @@ import logging
 logger = logging.getLogger('citepro')
 logger.setLevel(logging.INFO)
 
+## test whether rapids is installed, if not 
+try:
+    import rapids_singlecell as sc
+    use_gpu = True
+    logger.info("found rapids_singlecell, use GPU")
+except ModuleNotFoundError:
+    import scanpy as sc
+    use_gpu = False
+    logger.info("rapids_singlecell not installed, fallback to CPU")
+
 """create_mu module contains code to convert cellranger count matrix into MuData format
 """
 
 def _cluster_umap_by_modal(mudat: MuData, modal = Literal['prot', 'rna'], add_3d:bool = True):
+
     logger.info(f"{modal} - Run PCA")
+    sc.pp.filter_genes(mudat.mod['rna'],  min_counts=50)
     sc.pp.pca(mudat[modal])
     logger.info(f"{modal} - Generate neighbor graph")
     sc.pp.neighbors(mudat[modal])
@@ -80,7 +92,8 @@ def create_mudata(path_count: str,
     ## Read 
     mudat = read_10x_filter(path_count=path_count, path_map_rna=path_map_rna,
                             allow_file=allow_file, block_file=block_file)
-    
+    logger.info(f"{use_gpu=}")
+
     ## Step 1 calculate all the stastics with raw integer counts
     logger.info('Claculating protein UMI count descriptive metadata')
     calc_qc_prot_var(mudat['prot'])
@@ -118,6 +131,11 @@ def create_mudata(path_count: str,
             mudat['prot'].layers['arcsinh'] = mudat['prot'].X.copy()
         case _:
             logger.info('No normalization for protein.')
+
+    if use_gpu:
+        logger.info('using Rapids_singlecell, Moving data to GPU')
+        sc.get.anndata_to_GPU(mudat['prot'])
+        sc.get.anndata_to_GPU(mudat['rna'])
 
     rna_target_sum = 1e4
     logger.info(f'RNA - Performing log1p normalizing for rna with target total count per cell of {rna_target_sum}.')

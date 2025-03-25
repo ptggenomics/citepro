@@ -3,11 +3,15 @@ from muon import MuData
 from anndata import AnnData
 import numpy as np
 from statistics import median
-import scanpy as sc
+#import scanpy as sc
 
 from typing import Union
 
 from .utils import find_feature
+
+import logging
+logger = logging.getLogger('citepro')
+logger.setLevel(logging.INFO)
 
 """pp module contains utility codes for data preprocessing
 """
@@ -123,8 +127,16 @@ def gen_adata_celltypist(mdata_raw: MuData, ct_model='Immune_All_Low.pkl', targe
     Union[AnnData,None]
         _description_
     """    
+    # Trial 2 of cuml zero change failed too 
+    #try:
+    #    from cuml.accel import install
+    #    install()
+    #    logger.info("found cuml, try using cuml zero code change mode")
+    #except ModuleNotFoundError:
+    #    logger.info("cuml not installed, fallback to sk-learn")
 
     import celltypist as ct
+    import scanpy as sc
     
     adata = mdata_raw['rna'].copy()
     adata.var.index = [gn.replace("rna:","") for gn in adata.var.index]
