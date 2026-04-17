@@ -1,20 +1,23 @@
 from ipyfilechooser import FileChooser
 import ipywidgets as widgets
 from IPython.display import display
-import celltypist as ct
 
 from anndata import AnnData
 
 from .pl import multiomics_feature_plot
 
 
-modname = [mn for mn in ct.models.models_description()['model']]
-modname.insert(0, "--- None ---")
-
-
-
 def generate_create_mu_setting():
-    
+
+    try:
+        import celltypist as ct
+        modname = [mn for mn in ct.models.models_description()['model']]
+        modname.insert(0, "--- None ---")
+        _ct_available = True
+    except ImportError:
+        modname = ["--- None ---"]
+        _ct_available = False
+
     # Create and display a FileChooser widget
     fc_count = FileChooser()
     fc_count.filter_pattern = "*.h5"
@@ -41,7 +44,8 @@ def generate_create_mu_setting():
 
     celltypist_model_dropdown = widgets.Dropdown(
         options=modname,
-        value='Immune_All_Low.pkl'
+        value=modname[1] if _ct_available else "--- None ---",
+        disabled=not _ct_available,
     )
 
     cb_3d_umap = widgets.Checkbox(value=True, description='Generate 3D umap')

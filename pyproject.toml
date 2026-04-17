@@ -32,6 +32,9 @@ dependencies = [ # Optional
   "muon",
 ]
 
+[project.optional-dependencies]
+celltypist = ["celltypist"]
+
 
 [project.urls]  # Optional
 "Homepage" = "https://github.com/ptggenomics/citeutil"
