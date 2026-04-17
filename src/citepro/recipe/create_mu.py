@@ -6,7 +6,7 @@ import numpy as np
 
 from typing import Literal, Optional
 from ..io import read_10x_filter
-from ..pp import arcsinh_transform, calc_qc_prot_var, calc_cell_qc, gen_adata_celltypist
+from ..pp import arcsinh_transform, calc_qc_prot_var, calc_cell_qc
 
 from tqdm import trange
 import logging
@@ -103,8 +103,11 @@ def create_mudata(path_count: str,
     
     ## Step 2 run celltypist if needed
     if celltypist_model:
+        from ..pp import gen_adata_celltypist
         logger.info(f'Predicting celltype using Celltypist with model {celltypist_model}')
-        gen_adata_celltypist(mudat, inplace = True)
+        gen_adata_celltypist(mudat, ct_model=celltypist_model, inplace=True)
+    else:
+        logger.info('celltypist_model not specified, skipping cell type prediction')
     
 
     ## Step 3 add 'sample_id' into data if supplied
