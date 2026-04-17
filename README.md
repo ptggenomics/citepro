@@ -31,6 +31,18 @@ To install this package, use the following pip command
 uv pip install -u git+https://github.com/ptggenomics/citepro.git
 ```
 
+### Optional: CellTypist cell type annotation
+
+[CellTypist](https://www.celltypist.org/) is an optional plugin that enables automated cell type prediction. To install it:
+```
+uv pip install celltypist
+```
+Or install citepro together with CellTypist in one step:
+```
+uv pip install -u "citepro[celltypist] @ git+https://github.com/ptggenomics/citepro.git"
+```
+Without CellTypist installed, the `celltypist_model` parameter in `create_mudata()` will be ignored and the model selector in the notebook GUI will be disabled.
+
 
 # Example Usage
 This set of code are can work in jupyter/colab environment or being incorporated into your processing script

@@ -135,7 +135,13 @@ def gen_adata_celltypist(mdata_raw: MuData, ct_model='Immune_All_Low.pkl', targe
     #except ModuleNotFoundError:
     #    logger.info("cuml not installed, fallback to sk-learn")
 
-    import celltypist as ct
+    try:
+        import celltypist as ct
+    except ImportError:
+        raise ImportError(
+            "celltypist is required for cell type prediction. "
+            "Install it with: pip install celltypist"
+        )
     import scanpy as sc
     
     adata = mdata_raw['rna'].copy()
