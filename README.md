@@ -64,5 +64,11 @@ Please visit the [citepro-notebook](http://github.com/ptggenomics/citepro_notebo
 
 ----
 
+# GPU acceleration
+Starting from verison 0.1.2, a portion of the work flow is accelerated with [Rapids-singlecell](https://rapids-singlecell.readthedocs.io/en/latest/) library.
+if you plan to use GPU, please [install rapids-singlecell](https://rapids-singlecell.readthedocs.io/en/latest/Installation.html) prior to importing citepro.
+When importing, Citepro will automatically detect the presense of ```rapids-singlecell``` along with ```cupy``` and ```cuml```.
+
+
 
 This repository is under active development

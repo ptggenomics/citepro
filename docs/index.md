@@ -18,6 +18,8 @@ CITE-pro is built on the popular and well known python packages in the [scverse]
 
  * [celltypist](https://www.celltypist.org/), an automated cell type annotating tool that use RNA signature to predict the celltypes \(such as T or B cells\). 
 
+ * [rapids-singlecell](https://rapids-singlecell.readthedocs.io/en/latest/Installation.html), CUDA-accelerated scanpy.
+
 The purpose of CITE-pro is to provide a suggestion of using the publicly available libraries in a research-only manner, the user is ultimately responsible of determine the quality of data generated. 
 
 
